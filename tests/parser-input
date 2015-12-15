@@ -1,0 +1,76 @@
+{tree-a leaf}
+==============
+{tree-b {node leaf}}
+==============
+{tree-c
+    {node leaf}}
+==============
+                {tree-d
+        {node
+leaf}
+     }
+==============
+{tree-e {node.node leaf}}
+==============
+{tree-f
+    {node.node leaf}}
+==============
+{tree-g
+    {node
+        {' Literal text}}}
+==============
+{tree-h
+    {section
+        {' To-do list}
+        Do nothing}}
+==============
+{tree-i
+    {section
+        {' To-do list}
+        Get newlines in dangling strings to be interpreted literally
+        Test}}
+==============
+{tree-j
+    {section {' To-do list}
+        {b.i.o.u Really important task}
+        {' Test literal text expressions}
+        Promote dangling strings to literal text expressions
+        Close section expression in Javascript brace cascade for no reason, adding a literal newline
+    }
+}
+==============
+            {tree-k 
+        {section 
+    {' To-do list} 
+{' Wonder why anyone would ever do this}
+    }
+        }
+===============
+{tree-l
+    {section {' To-do list}
+        {' Check \{0, 1, 2\} isn't interpreted as an expression}
+        {' \{0, 1, 2\} should be interpreted literally} 
+        
+    {section {' To-do list}
+        {' \{0, 1, 2}. Forgot to escape the closing brace, but used the right number of closing braces for 
+        some 
+        {b.i.o.u \{\{\{\{\{\{mysterious\}\}\}\}\}\}}
+        reason} }}
+===============
+{tree-m
+    {title Testing a small real document}
+
+    {box#content
+        {section
+            {' This is a level 1 heading}
+            The quick brown fox jumps over the lazy dog
+            {section
+                {' Listing}
+                {bul-list
+                    {it {b.i.o.u expert}}
+                    {it {b bold}not bold}
+                    {it not formatted}}}}}
+
+    {box#footer
+        {i End of document}}
+}

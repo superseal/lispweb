@@ -1,0 +1,72 @@
+### car=<tree-a> cdr=<leaf>
+### car=<tree-b> (1 subexps)
+    ### car=<node> cdr=<leaf>
+### car=<tree-c> (1 subexps)
+    ### car=<node> cdr=<leaf>
+### car=<tree-d> (1 subexps)
+    ### car=<node> cdr=<leaf>
+### car=<tree-e> (1 subexps)
+    ### car=<node.node> cdr=<leaf>
+### car=<tree-f> (1 subexps)
+    ### car=<node.node> cdr=<leaf>
+### car=<tree-g> (1 subexps)
+    ### car=<node> (1 subexps)
+        ### car=<'> cdr=<Literal text>
+### car=<tree-h> (1 subexps)
+    ### car=<section> (2 subexps)
+        ### car=<'> cdr=<To-do list>
+        ### car=<'> cdr=<
+        Do nothing>
+### car=<tree-i> (1 subexps)
+    ### car=<section> (2 subexps)
+        ### car=<'> cdr=<To-do list>
+        ### car=<'> cdr=<
+        Get newlines in dangling strings to be interpreted literally
+        Test>
+### car=<tree-j> (1 subexps)
+    ### car=<section> (4 subexps)
+        ### car=<'> cdr=<To-do list>
+        ### car=<b.i.o.u> cdr=<Really important task>
+        ### car=<'> cdr=<Test literal text expressions>
+        ### car=<'> cdr=<
+        Promote dangling strings to literal text expressions
+        Close section expression in Javascript brace cascade for no reason, adding a literal newline
+    >
+### car=<tree-k> (1 subexps)
+    ### car=<section> (2 subexps)
+        ### car=<'> cdr=<To-do list>
+        ### car=<'> cdr=<Wonder why anyone would ever do this>
+### car=<tree-l> (1 subexps)
+    ### car=<section> (4 subexps)
+        ### car=<'> cdr=<To-do list>
+        ### car=<'> cdr=<Check {0, 1, 2} isn't interpreted as an expression>
+        ### car=<'> cdr=<{0, 1, 2} should be interpreted literally>
+        ### car=<section> (5 subexps)
+            ### car=<'> cdr=<To-do list>
+            ### car=<'> cdr=<{0, 1, 2>
+            ### car=<'> cdr=<. Forgot to escape the closing brace, but used the right number of closing braces for 
+        some 
+        >
+            ### car=<b.i.o.u> cdr=<{{{{{{mysterious}}}}}}>
+            ### car=<'> cdr=<
+        reason>
+### car=<tree-m> (3 subexps)
+    ### car=<title> cdr=<Testing a small real document>
+    ### car=<box> id=<content> (1 subexps)
+        ### car=<section> (3 subexps)
+            ### car=<'> cdr=<This is a level 1 heading>
+            ### car=<'> cdr=<
+            The quick brown fox jumps over the lazy dog
+            >
+            ### car=<section> (2 subexps)
+                ### car=<'> cdr=<Listing>
+                ### car=<bul-list> (3 subexps)
+                    ### car=<it> (1 subexps)
+                        ### car=<b.i.o.u> cdr=<expert>
+                    ### car=<it> (2 subexps)
+                        ### car=<b> cdr=<bold>
+                        ### car=<'> cdr=<not bold>
+                    ### car=<it> cdr=<not formatted>
+    ### car=<box> id=<footer> (1 subexps)
+        ### car=<i> cdr=<End of document>
+========================

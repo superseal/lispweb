@@ -1,0 +1,36 @@
+[33m[X] Semantic error (line 1, col 1 - line 2, col 14):[0m лес is not a valid car
+[33m[X] Semantic error (line 4, col 0 - line 4, col 14):[0m 木 is not a valid car
+[33m[X] Semantic error (line 10, col 0 - line 12, col 23):[0m First argument of a section expression must be a literal text expression, found it expression instead
+[33m[X] Semantic error (line 16, col 4 - line 18, col 27):[0m Lists can only be composed by it expressions, found b expression
+[33m[X] Semantic error (line 19, col 4 - line 19, col 33):[0m First argument of a link expression must be a literal text expression, found i expression instead
+[33m[X] Semantic error (line 27, col 0 - line 27, col 16):[0m section expression takes at least 2 arguments, got 0 arguments
+[33m[X] Semantic error (line 31, col 0 - line 31, col 14):[0m Lists must have at least one it expression
+### car=<лес> cdr=<дверо>
+### car=<木> id=<名前> cdr=<葉>
+### car=<section> (2 subexps)
+    ### car=<'> cdr=<Correct title>
+    ### car=<'> cdr=<Correct content>
+### car=<section> (2 subexps)
+    ### car=<it> cdr=<Incorrect title>
+    ### car=<'> cdr=<Correct content>
+### car=<section> (3 subexps)
+    ### car=<'> cdr=<Correct title
+    >
+    ### car=<bul-list> (2 subexps)
+        ### car=<it> cdr=<Correct item>
+        ### car=<b> cdr=<Incorrect item>
+    ### car=<link> (2 subexps)
+        ### car=<i> cdr=<Incorrect link>
+        ### car=<'> cdr=< Text>
+### car=<section> (2 subexps)
+    ### car=<'> cdr=<Correct title>
+    ### car=<num-list> (2 subexps)
+        ### car=<it> cdr=<Correct item>
+        ### car=<it> (1 subexps)
+            ### car=<b> cdr=<Correct item>
+### car=<section> cdr=<Nothing>
+### car=<section> (2 subexps)
+    ### car=<'> cdr=<a>
+    ### car=<'> cdr=<a>
+### car=<bul-list> cdr=<Test>
+========================
