@@ -32,7 +32,7 @@ void format_sexp(struct sexp exp)
             formatting_depth -= 1;
         }
     } else {
-        printf("cdr=<%s>\n", exp.cdr_atom);
+        printf("cdr=<%s>, %d bytes\n", exp.cdr_atom, exp.cdr_atom_length);
     }
 }
 
@@ -71,14 +71,14 @@ struct sexp parse_expression(char *content)
     enum parser_state state = START;
     
     /* Parse buffer and index */
-    char parse_buffer[PARSE_BUFFER_LENGTH];
+    char parse_buffer[PARSE_BUFFER_LENGTH] = {0};
     unsigned int i = 0;
    
     /* Expression buffer and index */
     struct sexp *exp_list = malloc(sizeof(struct sexp) * EXP_LIST_LENGTH);
     unsigned int exp_index = 0;
 
-    char *car, *id, *cdr;
+    char *car = NULL, *id = NULL, *cdr = NULL;
 
     /* Indices for error reporting */
     unsigned int opening_line, opening_col;
@@ -86,6 +86,9 @@ struct sexp parse_expression(char *content)
     
     /* Parsing conditions */
     char complex_cdr = 0, whitespace_cdr = 1;
+
+    /* Sub-expression length */
+    unsigned int sublength = 0;
 
     char c = ' ';
     while (c) {
@@ -131,7 +134,7 @@ struct sexp parse_expression(char *content)
                 parse_buffer[i++] = c;
             }
         } else if (state == ID) {
-            debug("ID");
+            debug("ID\n");
 
             if (!isspace(c)) {
                 parse_buffer[i++] = c;
@@ -150,7 +153,7 @@ struct sexp parse_expression(char *content)
                 continue;
             }
         } else if (state == CDR) {
-            debug("CDR\n");
+            debug("CDR sub %d\n", sublength);
 
             if (c == '{') {
                 complex_cdr = 1;
@@ -180,6 +183,7 @@ struct sexp parse_expression(char *content)
                 }
                 /* Recursive parsing */
                 struct sexp cons = parse_expression(content);
+                //sublength += cons.cdr_length;
                 exp_list[exp_index++] = cons;
             } else if (c == '}') {
                 parse_buffer[i++] = '\0';
@@ -197,6 +201,7 @@ struct sexp parse_expression(char *content)
                     struct sexp promoted_car = {
                         .car = "\'", 
                         .cdr_atom = cdr, 
+                        .cdr_atom_length = sublength,
                         .cdr_length = 0
                     };
                     exp_list[exp_index++] = promoted_car;
@@ -210,6 +215,7 @@ struct sexp parse_expression(char *content)
             } else {
                 /* Normal cdr atom parsing */
                 parse_buffer[i++] = c;
+                sublength++;
             }
         } else if (state == FINISH) {
             debug("FINISH\n");
@@ -218,6 +224,7 @@ struct sexp parse_expression(char *content)
                 .car = car,
                 .id = id,
                 .cdr_atom = cdr,
+                .cdr_atom_length = sublength,
                 .cdr_length = exp_index,
                 .opening_line = opening_line,
                 .opening_col = opening_col,

@@ -14,3 +14,4 @@
 
 void analyze_syntax(struct sexp tree);
 void analyze_expression(struct sexp leaf);
+void analyze_document(struct sexp tree);

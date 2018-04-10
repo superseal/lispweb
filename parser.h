@@ -46,6 +46,7 @@ struct sexp {
     char *car;
     char *id;
     char *cdr_atom;
+    unsigned int cdr_atom_length;
     /* Nested structures, not always used */
     unsigned char cdr_length;
     struct sexp *cdr_list;
