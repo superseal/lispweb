@@ -48,7 +48,7 @@ struct sexp {
     char *cdr_atom;
     unsigned int cdr_atom_length;
     /* Nested structures, not always used */
-    unsigned char cdr_length;
+    unsigned char cdr_subnodes;
     struct sexp *cdr_list;
     /* Error handling */
     unsigned int opening_line, opening_col;

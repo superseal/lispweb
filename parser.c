@@ -23,16 +23,16 @@ void format_sexp(struct sexp exp)
         printf("id=<%s> ", exp.id);
     }
 
-    if (exp.cdr_length) {
-        printf("(%d subexps)\n", exp.cdr_length);
+    if (exp.cdr_subnodes) {
+        printf("(%u bytes, %u subexps)\n", exp.cdr_atom_length, exp.cdr_subnodes);
         int e;
-        for (e = 0; e < exp.cdr_length; e++) {
+        for (e = 0; e < exp.cdr_subnodes; e++) {
             formatting_depth += 1;
             format_sexp(exp.cdr_list[e]);
             formatting_depth -= 1;
         }
     } else {
-        printf("cdr=<%s>, %d bytes\n", exp.cdr_atom, exp.cdr_atom_length);
+        printf("cdr=<%s>, %u bytes\n", exp.cdr_atom, exp.cdr_atom_length);
     }
 }
 
@@ -52,7 +52,7 @@ struct sexp parse_document(char *content)
 
     struct sexp root = {
         .car = "document",
-        .cdr_length = exp_index,
+        .cdr_subnodes = exp_index,
     };
 
     root.cdr_list = malloc(sizeof(struct sexp) * exp_index);
@@ -66,8 +66,7 @@ struct sexp parse_document(char *content)
 
 struct sexp parse_expression(char *content) 
 {
-    unsigned int length = strlen(content);
-
+    debug("parse_expression\n");
     enum parser_state state = START;
     
     /* Parse buffer and index */
@@ -79,6 +78,9 @@ struct sexp parse_expression(char *content)
     unsigned int exp_index = 0;
 
     char *car = NULL, *id = NULL, *cdr = NULL;
+    
+    /* Length of raw string in cdr */
+    unsigned int atom_length = 0;
 
     /* Indices for error reporting */
     unsigned int opening_line, opening_col;
@@ -86,9 +88,6 @@ struct sexp parse_expression(char *content)
     
     /* Parsing conditions */
     char complex_cdr = 0, whitespace_cdr = 1;
-
-    /* Sub-expression length */
-    unsigned int sublength = 0;
 
     char c = ' ';
     while (c) {
@@ -153,7 +152,7 @@ struct sexp parse_expression(char *content)
                 continue;
             }
         } else if (state == CDR) {
-            debug("CDR sub %d\n", sublength);
+            debug("CDR sub %d\n", atom_length);
 
             if (c == '{') {
                 complex_cdr = 1;
@@ -164,7 +163,8 @@ struct sexp parse_expression(char *content)
                     cdr = strdup(parse_buffer);
                     /* All-whitespace cdr */
                     int w;
-                    for (w = 0; w < strlen(cdr); w++) {
+                    atom_length = strlen(cdr);
+                    for (w = 0; w < atom_length; w++) {
                         if (!isspace(cdr[w])) {
                             whitespace_cdr = 0;
                             break;
@@ -175,7 +175,8 @@ struct sexp parse_expression(char *content)
                         struct sexp promoted_car = {
                             .car = "\'", 
                             .cdr_atom = cdr, 
-                            .cdr_length = 0
+                            .cdr_subnodes = 0,
+                            .cdr_atom_length = atom_length,
                         };
                         exp_list[exp_index++] = promoted_car;
                         whitespace_cdr = 1;
@@ -183,14 +184,14 @@ struct sexp parse_expression(char *content)
                 }
                 /* Recursive parsing */
                 struct sexp cons = parse_expression(content);
-                //sublength += cons.cdr_length;
                 exp_list[exp_index++] = cons;
             } else if (c == '}') {
                 parse_buffer[i++] = '\0';
                 cdr = strdup(parse_buffer);
+                atom_length = strlen(cdr);
                 /* All-whitespace cdr */
                 int w;
-                for (w = 0; w < strlen(cdr); w++) {
+                for (w = 0; w < atom_length; w++) {
                     if (!isspace(cdr[w])) {
                         whitespace_cdr = 0;
                         break;
@@ -201,8 +202,8 @@ struct sexp parse_expression(char *content)
                     struct sexp promoted_car = {
                         .car = "\'", 
                         .cdr_atom = cdr, 
-                        .cdr_atom_length = sublength,
-                        .cdr_length = 0
+                        .cdr_subnodes = 0,
+                        .cdr_atom_length = atom_length,
                     };
                     exp_list[exp_index++] = promoted_car;
                 }
@@ -215,17 +216,18 @@ struct sexp parse_expression(char *content)
             } else {
                 /* Normal cdr atom parsing */
                 parse_buffer[i++] = c;
-                sublength++;
             }
         } else if (state == FINISH) {
             debug("FINISH\n");
+
+            atom_length = strlen(cdr);
 
             struct sexp exp = {
                 .car = car,
                 .id = id,
                 .cdr_atom = cdr,
-                .cdr_atom_length = sublength,
-                .cdr_length = exp_index,
+                .cdr_atom_length = atom_length,
+                .cdr_subnodes = exp_index,
                 .opening_line = opening_line,
                 .opening_col = opening_col,
                 .closing_line = closing_line,
@@ -234,13 +236,15 @@ struct sexp parse_expression(char *content)
             
             if (exp_index > 0) {
                 exp.cdr_list = malloc(sizeof(struct sexp) * exp_index);
+                exp.cdr_atom_length = 0;
                 int e;
                 for (e = 0; e < exp_index; e++) {
                     exp.cdr_list[e] = exp_list[e];
+                    exp.cdr_atom_length += exp_list[e].cdr_atom_length;
                 }
             } else {
                 exp.cdr_list = NULL;
-                exp.cdr_length = 0;
+                exp.cdr_subnodes = 0;
             }
             
             car = NULL;

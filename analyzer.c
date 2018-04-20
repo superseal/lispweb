@@ -35,9 +35,9 @@ void analyze_document(struct sexp tree)
 {
     analyze_expression(tree);
     
-    if (tree.cdr_length) {
+    if (tree.cdr_subnodes) {
         int e;
-        for (e = 0; e < tree.cdr_length; e++) {
+        for (e = 0; e < tree.cdr_subnodes; e++) {
             analyze_document(tree.cdr_list[e]);
         }
     }
@@ -60,8 +60,8 @@ void analyze_expression(struct sexp leaf)
 
     /* Higher arity functions */
     if (strcmp("section", leaf.car) == 0 || strcmp("link", leaf.car) == 0 || strcmp("img", leaf.car) == 0) {
-        if (leaf.cdr_length < 2) {
-            abort_analysis("Semantic error", "%s expression takes at least 2 arguments, got %d arguments", leaf.car, leaf.cdr_length);
+        if (leaf.cdr_subnodes < 2) {
+            abort_analysis("Semantic error", "%s expression takes at least 2 arguments, got %d arguments", leaf.car, leaf.cdr_subnodes);
             return;
         }
         if (strcmp("\'", leaf.cdr_list[0].car) != 0) {
@@ -70,12 +70,12 @@ void analyze_expression(struct sexp leaf)
     } 
     
     if (strcmp("bul-list", leaf.car) == 0 || strcmp("num-list", leaf.car) == 0) {
-        if (leaf.cdr_length < 2) {
+        if (leaf.cdr_subnodes < 2) {
             abort_analysis("Semantic error", "Lists must have at least one it expression");
             return;
         }
         int i;
-        for (i = 0; i < leaf.cdr_length; i++) {
+        for (i = 1; i < leaf.cdr_subnodes; i++) {
             if (strcmp(leaf.cdr_list[i].car, "it") != 0) {
                 abort_analysis("Semantic error", "Lists can only be composed by it expressions, found %s expression", leaf.cdr_list[i].car);
             }

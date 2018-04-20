@@ -1,71 +1,71 @@
-### car=<tree-a> cdr=<leaf>
+### car=<tree-a> cdr=<leaf>, 4 bytes
 ### car=<tree-b> (1 subexps)
-    ### car=<node> cdr=<leaf>
+    ### car=<node> cdr=<leaf>, 4 bytes
 ### car=<tree-c> (1 subexps)
-    ### car=<node> cdr=<leaf>
+    ### car=<node> cdr=<leaf>, 4 bytes
 ### car=<tree-d> (1 subexps)
-    ### car=<node> cdr=<leaf>
+    ### car=<node> cdr=<leaf>, 4 bytes
 ### car=<tree-e> (1 subexps)
-    ### car=<node.node> cdr=<leaf>
+    ### car=<node.node> cdr=<leaf>, 4 bytes
 ### car=<tree-f> (1 subexps)
-    ### car=<node.node> cdr=<leaf>
+    ### car=<node.node> cdr=<leaf>, 4 bytes
 ### car=<tree-g> (1 subexps)
     ### car=<node> (1 subexps)
-        ### car=<'> cdr=<Literal text>
+        ### car=<'> cdr=<Literal text>, 12 bytes
 ### car=<tree-h> (1 subexps)
     ### car=<section> (2 subexps)
-        ### car=<'> cdr=<To-do list>
+        ### car=<'> cdr=<To-do list>, 10 bytes
         ### car=<'> cdr=<
-        Do nothing>
+        Do nothing>, 19 bytes
 ### car=<tree-i> (1 subexps)
     ### car=<section> (2 subexps)
-        ### car=<'> cdr=<To-do list>
+        ### car=<'> cdr=<To-do list>, 10 bytes
         ### car=<'> cdr=<
         Get newlines in dangling strings to be interpreted literally
-        Test>
+        Test>, 82 bytes
 ### car=<tree-j> (1 subexps)
     ### car=<section> (4 subexps)
-        ### car=<'> cdr=<To-do list>
-        ### car=<b.i.o.u> cdr=<Really important task>
-        ### car=<'> cdr=<Test literal text expressions>
+        ### car=<'> cdr=<To-do list>, 10 bytes
+        ### car=<b.i.o.u> cdr=<Really important task>, 21 bytes
+        ### car=<'> cdr=<Test literal text expressions>, 29 bytes
         ### car=<'> cdr=<
         Promote dangling strings to literal text expressions
         Close section expression in Javascript brace cascade for no reason, adding a literal newline
-    >
+    >, 167 bytes
 ### car=<tree-k> (1 subexps)
     ### car=<section> (2 subexps)
-        ### car=<'> cdr=<To-do list>
-        ### car=<'> cdr=<Wonder why anyone would ever do this>
+        ### car=<'> cdr=<To-do list>, 10 bytes
+        ### car=<'> cdr=<Wonder why anyone would ever do this>, 36 bytes
 ### car=<tree-l> (1 subexps)
     ### car=<section> (4 subexps)
-        ### car=<'> cdr=<To-do list>
-        ### car=<'> cdr=<Check {0, 1, 2} isn't interpreted as an expression>
-        ### car=<'> cdr=<{0, 1, 2} should be interpreted literally>
+        ### car=<'> cdr=<To-do list>, 10 bytes
+        ### car=<'> cdr=<Check {0, 1, 2} isn't interpreted as an expression>, 50 bytes
+        ### car=<'> cdr=<{0, 1, 2} should be interpreted literally>, 41 bytes
         ### car=<section> (5 subexps)
-            ### car=<'> cdr=<To-do list>
-            ### car=<'> cdr=<{0, 1, 2>
+            ### car=<'> cdr=<To-do list>, 10 bytes
+            ### car=<'> cdr=<{0, 1, 2>, 8 bytes
             ### car=<'> cdr=<. Forgot to escape the closing brace, but used the right number of closing braces for 
         some 
-        >
-            ### car=<b.i.o.u> cdr=<{{{{{{mysterious}}}}}}>
+        >, 109 bytes
+            ### car=<b.i.o.u> cdr=<{{{{{{mysterious}}}}}}>, 22 bytes
             ### car=<'> cdr=<
-        reason>
+        reason>, 15 bytes
 ### car=<tree-m> (3 subexps)
-    ### car=<title> cdr=<Testing a small real document>
+    ### car=<title> cdr=<Testing a small real document>, 29 bytes
     ### car=<box> id=<content> (1 subexps)
         ### car=<section> (3 subexps)
-            ### car=<'> cdr=<This is a level 1 heading>
+            ### car=<'> cdr=<This is a level 1 heading>, 25 bytes
             ### car=<'> cdr=<
             The quick brown fox jumps over the lazy dog
-            >
+            >, 69 bytes
             ### car=<section> (2 subexps)
-                ### car=<'> cdr=<Listing>
+                ### car=<'> cdr=<Listing>, 7 bytes
                 ### car=<bul-list> (3 subexps)
                     ### car=<it> (1 subexps)
-                        ### car=<b.i.o.u> cdr=<expert>
+                        ### car=<b.i.o.u> cdr=<expert>, 6 bytes
                     ### car=<it> (2 subexps)
-                        ### car=<b> cdr=<bold>
-                        ### car=<'> cdr=<not bold>
-                    ### car=<it> cdr=<not formatted>
+                        ### car=<b> cdr=<bold>, 4 bytes
+                        ### car=<'> cdr=<not bold>, 8 bytes
+                    ### car=<it> cdr=<not formatted>, 13 bytes
     ### car=<box> id=<footer> (1 subexps)
-        ### car=<i> cdr=<End of document>
+        ### car=<i> cdr=<End of document>, 15 bytes

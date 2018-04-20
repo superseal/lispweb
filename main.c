@@ -18,6 +18,7 @@ int main(int argc, char **argv)
     char* content = read_source(argv[1]);
     char* filtered_content = filter(content);
     struct sexp tree = parse_document(filtered_content);
+
     analyze_document(tree);
 
     return 0;
